@@ -184,7 +184,8 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
         JButton actionSource = (JButton)e.getSource();
         if(actionSource.equals(warriorButton)){
             charClass = "warrior";
-            //TODO: Close the window once the user has clicked on a class button - may need to change what interface i'm (you're) using to read window events/status
+            //TODO: Close the window once the user has clicked on a class button
+qqq
         } else if (actionSource.equals(barbarianButton)){
             charClass = "barbarian";
         }
