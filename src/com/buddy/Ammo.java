@@ -14,6 +14,7 @@ public class Ammo {
     }
 
     public Ammo(String name, String type, int damage, int quantity) {
+        this.name = name;
         this.type = type;
         this.damage = damage;
         this.quantity = quantity;

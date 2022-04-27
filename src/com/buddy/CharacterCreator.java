@@ -16,7 +16,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CharacterCreator implements ActionListener, WindowStateListener {
-    static String charClass = "";
+    public final List<Object> EMPTY_INVENTORY = new ArrayList<>();
+    public final List<Ammo> EMPTY_AMMO_BAG = new ArrayList<Ammo>();
+
+    Character playerChar = Main.player;
+    List<Potion> potionBag = new ArrayList<Potion>();
 
     static Armor ironHat = new Armor("head", "Crude Iron Helmet", 2);
     static Armor ironChest = new Armor("chest", "Crude Iron Chestplate", 6);
@@ -36,7 +40,7 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
     static JButton warlockButton = new JButton("Warlock");
     static JButton pyroButton = new JButton("Pyromancer");
 
-    public Character charSetup(){
+    public void charSetup(){
         String name = JOptionPane.showInputDialog("Enter character name");
         charFrame.addWindowStateListener(this);
         barbarianButton.addActionListener(this);
@@ -84,18 +88,18 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
                 Armor barbarianChest = new Armor("chest", "Fur Cloak", 2);
                 Melee barbarianAxe = new Melee("battleAxe", "Crude Battleaxe", 10, 8);
 
-                Character player = new Character(charName, "barbarian", 65, 65, 25, 25, barbarianAxe, ironHat, barbarianChest, furBoots, ammoBag, potionBag);
+                Character player = new Character(charName, "barbarian", 65, 65, 25, 25, barbarianAxe, ironHat, barbarianChest, furBoots, EMPTY_AMMO_BAG, potionBag, EMPTY_INVENTORY);
                 return player;
             }
             case "Warrior": {
                 List<Ammo> ammoBag = new ArrayList<Ammo>();
 
                 List<Potion> potionBag = new ArrayList<Potion>();
-                potionBag.add(new Potion("5 point health potion", "health", 5));
+                potionBag.add(new Potion("25 point health potion", "health", 25));
 
                 Melee warriorSword = new Melee("sword", "Crude Iron Sword", 5, 4);
 
-                Character player = new Character(charName, "warrior", 40, 40, 40, 40, warriorSword, ironHat, ironChest, ironFoot, ammoBag, potionBag);
+                Character player = new Character(charName, "warrior", 40, 40, 40, 40, warriorSword, ironHat, ironChest, ironFoot, EMPTY_AMMO_BAG, potionBag, EMPTY_INVENTORY);
                 return player;
             }
             case "Hunter": {
@@ -109,7 +113,7 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
                 Armor hunterChest = new Armor("chest", "Leather Armor", 4);
                 Ranged hunterBow = new Ranged("bow", "Crude Wooden Bow", 5, 3, "arrow");
 
-                Character player = new Character(charName, "hunter", 25, 25, 40, 40, hunterBow, furHat, hunterChest, furBoots, ammoBag, potionBag);
+                Character player = new Character(charName, "hunter", 25, 25, 40, 40, hunterBow, furHat, hunterChest, furBoots, EMPTY_AMMO_BAG, potionBag, EMPTY_INVENTORY);
                 return player;
             }
             case "Ranger": {
@@ -122,7 +126,7 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
 
                 Ranged rangerCrossbow = new Ranged("crossbow", "Cracked Wooden Crossbow", 8, 6, "bolt");
 
-                Character player = new Character(charName, "ranger", 25, 25, 35, 35, rangerCrossbow, furHat, ironChest, ironFoot, ammoBag, potionBag);
+                Character player = new Character(charName, "ranger", 25, 25, 35, 35, rangerCrossbow, furHat, ironChest, ironFoot, EMPTY_AMMO_BAG, potionBag, EMPTY_INVENTORY);
                 return player;
             }
             case "Sentinel" : {
@@ -135,7 +139,7 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
 
                 Ranged sentinelGreatbow = new Ranged("greatbow", "Cracked Wooden Great Bow", 12, 8, "greatarrow");
 
-                Character player = new Character(charName, "sentinel", 35, 35, 60, 60, sentinelGreatbow, ironHat, ironChest, ironFoot, ammoBag, potionBag);
+                Character player = new Character(charName, "sentinel", 35, 35, 60, 60, sentinelGreatbow, ironHat, ironChest, ironFoot, EMPTY_AMMO_BAG, potionBag, EMPTY_INVENTORY);
                 return player;
             }
             case "Mage" : {
@@ -146,7 +150,7 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
 
                 Magic mageSpell = new Magic("Minor Blast", 12, 3, "magic");
 
-                Character player = new Character(charName, "mage", 25, 25, 35, 35, mageSpell, clothHood, clothRobes, furBoots, ammoBag, potionBag);
+                Character player = new Character(charName, "mage", 25, 25, 35, 35, mageSpell, clothHood, clothRobes, furBoots, EMPTY_AMMO_BAG, potionBag, EMPTY_INVENTORY);
                 return player;
             }
             case "Warlock": {
@@ -158,7 +162,7 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
                 Armor warlockHat = new Armor("head", "Goat Skull Helmet", 3);
                 Magic warlockSpell = new Magic("Dark Strike", 15, 5, "shadow");
 
-                Character player = new Character(charName, "warlock", 20, 20, 45, 45, warlockSpell, warlockHat, clothRobes, furBoots, ammoBag, potionBag);
+                Character player = new Character(charName, "warlock", 20, 20, 45, 45, warlockSpell, warlockHat, clothRobes, furBoots, EMPTY_AMMO_BAG, potionBag, EMPTY_INVENTORY);
                 return player;
             }
             case "Pyromancer" : {
@@ -169,7 +173,7 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
 
                 Magic pyroSpell = new Magic("Minor Flame", 18, 7, "pyro");
 
-                Character player = new Character(charName, "pyromancer", 20, 20, 45, 45, pyroSpell, clothHood, ironChest, ironFoot, ammoBag, potionBag);
+                Character player = new Character(charName, "pyromancer", 20, 20, 45, 45, pyroSpell, clothHood, ironChest, ironFoot, EMPTY_AMMO_BAG, potionBag, EMPTY_INVENTORY);
                 return player;
             }
         }
@@ -181,10 +185,24 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
 
         JButton actionSource = (JButton)e.getSource();
         if(actionSource.equals(warriorButton)){
-            charClass = "Warrior";
+            Melee warriorSword = new Melee("sword", "Crude Iron Sword", 5, 4);
+
+            playerChar.setCharClass("Warrior");
+            playerChar.setCharClass("Warrior");
+            playerChar.setAmmoBag(EMPTY_AMMO_BAG);
+            playerChar.setMaxHealth(100);
+            playerChar.setCurrentHealth(100);
+            playerChar.setMaxActionPoints(20);
+            playerChar.setCurrentActionPoints(20);
+            playerChar.setCurrentHelmet(ironHat);
+            playerChar.setCurrentChest(ironChest);
+            playerChar.setCurrentBoots(ironFoot);
+            playerChar.setPotionBag(potionBag);
+                potionBag.add(new Potion("25 point health potion", "health", 25));
+            playerChar.setCurrentWeapon(warriorSword);
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(barbarianButton)){
-            charClass = "Warbarian";
+            charClass = "Barbarian";
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(hunterButton)){
             charClass = "Hunter";

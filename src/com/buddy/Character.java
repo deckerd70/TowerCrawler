@@ -4,6 +4,9 @@ import com.buddy.WeaponList.Weapon;
 
 import java.util.List;
 
+// Player character class - all attributes and items will be stored here in their respective variables
+//
+// Enenmies will have their own class where their health/AP/drops/damage will be held
 public class Character {
     String name;
     String charClass;
@@ -17,7 +20,7 @@ public class Character {
     Armor currentBoots;
     List<Ammo> ammoBag;
     List<Potion> potionBag;
-    List<Object> inventory;
+    List<Object> equipmentInventory;
 
     public Character() {
         String name;
@@ -32,6 +35,7 @@ public class Character {
         Armor currentBoots;
         List<Ammo> ammoBag;
         List<Potion> potionBag;
+        List<Object> equipmentInventory;
     }
 
     public Character(String name,
@@ -45,7 +49,8 @@ public class Character {
                      Armor currentChest,
                      Armor currentBoots,
                      List<Ammo> ammoBag,
-                     List<Potion> potionBag) {
+                     List<Potion> potionBag,
+                     List<Object> equipmentInventory){
         this.name = name;
         this.charClass = charClass;
         this.maxHealth = maxHealth;
@@ -58,6 +63,7 @@ public class Character {
         this.currentBoots = currentBoots;
         this.ammoBag = ammoBag;
         this.potionBag = potionBag;
+        this.equipmentInventory = equipmentInventory;
     }
 
     public String getName() {

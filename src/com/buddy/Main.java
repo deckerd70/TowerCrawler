@@ -7,11 +7,11 @@ import java.util.Scanner;
 
 public class Main {
     static CharacterCreator characterCreator = new CharacterCreator();
+    public static Character player = new Character();
 
     public static void main(String[] args) {
 
-        Character player = characterCreator.charSetup();
-
+        characterCreator.charSetup();
         System.out.println(player.charClass);
         System.out.println(player.getCurrentBoots().name);
 
