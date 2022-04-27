@@ -38,12 +38,6 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
 
     public Character charSetup(){
         String name = JOptionPane.showInputDialog("Enter character name");
-
-        Character character = createCharacter(name);
-        return character;
-    }
-
-    public Character createCharacter(String charName) {
         charFrame.addWindowStateListener(this);
         barbarianButton.addActionListener(this);
         warriorButton.addActionListener(this);
@@ -76,7 +70,11 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
         charFrame.setLayout(null);
         charFrame.setVisible(true);
 
-        switch(charClass) {
+    }
+
+    public Character createCharacter(String charName,String chosenClass) {
+
+        switch(chosenClass) {
             case "Barbarian" : {
                 List<Ammo> ammoBag = new ArrayList<Ammo>();
 
@@ -183,11 +181,29 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
 
         JButton actionSource = (JButton)e.getSource();
         if(actionSource.equals(warriorButton)){
-            charClass = "warrior";
-            //TODO: Close the window once the user has clicked on a class button
-qqq
+            charClass = "Warrior";
+            charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(barbarianButton)){
-            charClass = "barbarian";
+            charClass = "Warbarian";
+            charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
+        } else if (actionSource.equals(hunterButton)){
+            charClass = "Hunter";
+            charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
+        } else if (actionSource.equals(rangerButton)){
+            charClass = "Ranger";
+            charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
+        } else if (actionSource.equals(sentinelButton)){
+            charClass = "Sentinel";
+            charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
+        } else if (actionSource.equals(mageButton)){
+            charClass = "Mage";
+            charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
+        } else if (actionSource.equals(warlockButton)){
+            charClass = "Warlock";
+            charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
+        } else if (actionSource.equals(pyroButton)){
+            charClass = "Pyromancer";
+            charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         }
     };
 

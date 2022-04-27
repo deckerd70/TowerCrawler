@@ -12,6 +12,9 @@ public class Main {
 
         Character player = characterCreator.charSetup();
 
+        System.out.println(player.charClass);
+        System.out.println(player.getCurrentBoots().name);
+
         while (player.getCurrentHealth() > 0) { // || Level > 10)
 
         }
