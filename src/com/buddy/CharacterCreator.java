@@ -40,8 +40,9 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
     static JButton warlockButton = new JButton("Warlock");
     static JButton pyroButton = new JButton("Pyromancer");
 
-    public void charSetup(){
+    public void charSetup() throws InterruptedException {
         String name = JOptionPane.showInputDialog("Enter character name");
+
         charFrame.addWindowStateListener(this);
         barbarianButton.addActionListener(this);
         warriorButton.addActionListener(this);
@@ -74,6 +75,9 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
         charFrame.setLayout(null);
         charFrame.setVisible(true);
 
+        while (playerChar.getCurrentWeapon() == null){
+            synchronized (charSetup());
+        }
     }
 
     public Character createCharacter(String charName,String chosenClass) {
@@ -187,8 +191,7 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
         if(actionSource.equals(warriorButton)){
             Melee warriorSword = new Melee("sword", "Crude Iron Sword", 5, 4);
 
-            playerChar.setCharClass("Warrior");
-            playerChar.setCharClass("Warrior");
+            Main.player.setCharClass("Warrior");
             playerChar.setAmmoBag(EMPTY_AMMO_BAG);
             playerChar.setMaxHealth(100);
             playerChar.setCurrentHealth(100);
@@ -202,25 +205,25 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
             playerChar.setCurrentWeapon(warriorSword);
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(barbarianButton)){
-            charClass = "Barbarian";
+            //charClass = "Barbarian";
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(hunterButton)){
-            charClass = "Hunter";
+            //charClass = "Hunter";
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(rangerButton)){
-            charClass = "Ranger";
+            //harClass = "Ranger";
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(sentinelButton)){
-            charClass = "Sentinel";
+            //charClass = "Sentinel";
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(mageButton)){
-            charClass = "Mage";
+            //charClass = "Mage";
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(warlockButton)){
-            charClass = "Warlock";
+            //charClass = "Warlock";
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(pyroButton)){
-            charClass = "Pyromancer";
+            //charClass = "Pyromancer";
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         }
     };

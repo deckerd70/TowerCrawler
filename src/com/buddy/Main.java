@@ -6,11 +6,13 @@ import javax.swing.*;
 import java.util.Scanner;
 
 public class Main {
-    static CharacterCreator characterCreator = new CharacterCreator();
+    CharacterCreator characterCreator;
     public static Character player = new Character();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
+        CharacterCreator characterCreator = new CharacterCreator();
+        Character player = new Character();
         characterCreator.charSetup();
         System.out.println(player.charClass);
         System.out.println(player.getCurrentBoots().name);
