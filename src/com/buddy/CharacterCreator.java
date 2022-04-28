@@ -19,7 +19,8 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
     public final List<Object> EMPTY_INVENTORY = new ArrayList<>();
     public final List<Ammo> EMPTY_AMMO_BAG = new ArrayList<Ammo>();
 
-    Character playerChar = Main.player;
+    static Character playerChar = Main.player;
+    String name = JOptionPane.showInputDialog("Enter character name");
     List<Potion> potionBag = new ArrayList<Potion>();
 
     static Armor ironHat = new Armor("head", "Crude Iron Helmet", 2);
@@ -41,7 +42,6 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
     static JButton pyroButton = new JButton("Pyromancer");
 
     public void charSetup() throws InterruptedException {
-        String name = JOptionPane.showInputDialog("Enter character name");
 
         charFrame.addWindowStateListener(this);
         barbarianButton.addActionListener(this);
@@ -76,7 +76,7 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
         charFrame.setVisible(true);
 
         while (playerChar.getCurrentWeapon() == null){
-            synchronized (charSetup());
+            Thread.sleep(5);
         }
     }
 
@@ -191,7 +191,8 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
         if(actionSource.equals(warriorButton)){
             Melee warriorSword = new Melee("sword", "Crude Iron Sword", 5, 4);
 
-            Main.player.setCharClass("Warrior");
+            playerChar.setName(name);
+            playerChar.setCharClass("Warrior");
             playerChar.setAmmoBag(EMPTY_AMMO_BAG);
             playerChar.setMaxHealth(100);
             playerChar.setCurrentHealth(100);
