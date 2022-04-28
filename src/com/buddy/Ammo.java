@@ -1,6 +1,11 @@
 package com.buddy;
 
 public class Ammo {
+    //Types of Ammo
+    public static final String GREAT_ARROW = "greatarrow";
+    public static final String ARROW = "arrow";
+    public static final String BOLT = "bolt";
+
     String name;
     String type;
     int damage;

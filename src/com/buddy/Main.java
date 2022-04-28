@@ -14,7 +14,7 @@ public class Main {
         CharacterCreator characterCreator = new CharacterCreator();
         Character player = CharacterCreator.playerChar;
         characterCreator.charSetup();
-        System.out.println(player.charClass + player.getName());
+        System.out.println(player.charClass + " name:" +player.getName());
         System.out.println(player.getCurrentBoots().name);
 
         while (player.getCurrentHealth() > 0) { // || Level > 10)
