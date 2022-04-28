@@ -223,6 +223,7 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
             playerChar.setMaxHealth(60);
             playerChar.setCurrentHealth(60);
             playerChar.setMaxActionPoints(20);
+            playerChar.setCurrentActionPoints(20);
 
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(rangerButton)) {
