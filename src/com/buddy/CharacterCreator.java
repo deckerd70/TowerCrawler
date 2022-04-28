@@ -95,33 +95,6 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
     public Character createCharacter(String charName,String chosenClass) {
 
         switch(chosenClass) {
-            case "Hunter": {
-                List<Ammo> ammoBag = new ArrayList<Ammo>();
-                ammoBag.add(new Ammo("Iron Arrow", "arrow", 2, 20));
-
-                List<Potion> potionBag = new ArrayList<Potion>();
-                potionBag.add(new Potion("5 point health potion", "health", 5));
-                potionBag.add(new Potion("5 point health potion", "health", 5));
-
-                Armor hunterChest = new Armor("chest", "Leather Armor", 4);
-                Ranged hunterBow = new Ranged("bow", "Crude Wooden Bow", 5, 3, "arrow");
-
-                Character player = new Character(charName, "hunter", 25, 25, 40, 40, hunterBow, furHat, hunterChest, furBoots, EMPTY_AMMO_BAG, potionBag, EMPTY_INVENTORY);
-                return player;
-            }
-            case "Ranger": {
-                List<Ammo> ammoBag = new ArrayList<Ammo>();
-                ammoBag.add(new Ammo("Iron Bolt", "bolt", 4, 20));
-
-                List<Potion> potionBag = new ArrayList<Potion>();
-                potionBag.add(new Potion("5 point health potion", "health", 5));
-                potionBag.add(new Potion("5 point action potion", "actionPoints", 5));
-
-                Ranged rangerCrossbow = new Ranged("crossbow", "Cracked Wooden Crossbow", 8, 6, "bolt");
-
-                Character player = new Character(charName, "ranger", 25, 25, 35, 35, rangerCrossbow, furHat, ironChest, ironFoot, EMPTY_AMMO_BAG, potionBag, EMPTY_INVENTORY);
-                return player;
-            }
             case "Sentinel" : {
                 List<Ammo> ammoBag = new ArrayList<Ammo>();
                 ammoBag.add(new Ammo("Wooden Greatarrow", "greatarrow", 8, 20));
@@ -176,6 +149,7 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         playerChar.setName(name);
+        playerChar.setEquipmentInventory(EMPTY_INVENTORY);
 
         JButton actionSource = (JButton)e.getSource();
         if(actionSource.equals(warriorButton)) {
@@ -219,15 +193,37 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
 
             playerChar.setCharClass(HUNTER_CLASS);
             playerChar.setAmmoBag(EMPTY_AMMO_BAG);
-                playerChar.ammoBag.add(new Ammo("Iron Arrow", "arrow", 2, 20));
+                playerChar.ammoBag.add(new Ammo("Iron Arrow", "arrow", 2));
             playerChar.setMaxHealth(60);
             playerChar.setCurrentHealth(60);
             playerChar.setMaxActionPoints(20);
             playerChar.setCurrentActionPoints(20);
+            playerChar.setCurrentHelmet(furHat);
+            playerChar.setCurrentChest(hunterChest);
+            playerChar.setCurrentBoots(furBoots);
+            playerChar.setPotionBag(potionBag);
+                potionBag.add(FIVE_POINT_HP_POTION);
+                potionBag.add(FIVE_POINT_HP_POTION);
+            playerChar.setCurrentWeapon(hunterBow);
 
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(rangerButton)) {
-            //harClass = "Ranger";
+            Ranged rangerCrossbow = new Ranged("crossbow", "Cracked Wooden Crossbow", 8, 6, "bolt");
+
+            playerChar.setCharClass(RANGER_CLASS);
+            playerChar.setAmmoBag(EMPTY_AMMO_BAG);
+                playerChar.ammoBag.add(new Ammo("Iron Bolt", "bolt", 4));
+            playerChar.setMaxHealth(80);
+            playerChar.setCurrentHealth(80);
+            playerChar.setMaxActionPoints(25);
+            playerChar.setCurrentActionPoints(25);
+            playerChar.setCurrentHelmet(furHat);
+            playerChar.setCurrentChest(ironChest);
+            playerChar.setCurrentBoots(ironFoot);
+            playerChar.setPotionBag(potionBag);
+                potionBag.add(FIVE_POINT_HP_POTION);
+            playerChar.setCurrentWeapon(rangerCrossbow);
+
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(sentinelButton)) {
             //charClass = "Sentinel";

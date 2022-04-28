@@ -9,20 +9,17 @@ public class Ammo {
     String name;
     String type;
     int damage;
-    int quantity;
 
     public Ammo() {
         String name;
         String type;
         int damage;
-        int quantity;
     }
 
-    public Ammo(String name, String type, int damage, int quantity) {
+    public Ammo(String name, String type, int damage) {
         this.name = name;
         this.type = type;
         this.damage = damage;
-        this.quantity = quantity;
     }
 
     public String getName() {
@@ -47,13 +44,5 @@ public class Ammo {
 
     public void setDamage(int damage) {
         this.damage = damage;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 }

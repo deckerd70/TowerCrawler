@@ -161,4 +161,13 @@ public class Character {
     public void setPotionBag(List<Potion> potionBag) {
         this.potionBag = potionBag;
     }
+
+    public List<Object> getEquipmentInventory(){
+        return equipmentInventory;
+    }
+
+    public void setEquipmentInventory(List<Object> equipmentInventory) {
+        this.equipmentInventory = equipmentInventory;
+    }
+
 }
