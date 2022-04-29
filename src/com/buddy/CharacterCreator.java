@@ -45,14 +45,14 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
     static Armor clothRobes = new Armor("chest", "Cloth Robes", 3);
 
     static JFrame charFrame = new JFrame("Character Class");
-    static JButton barbarianButton = new JButton("Barbarian");
+    static JButton barbarianButton = new JButton(BARBARIAN_CLASS);
     static JButton warriorButton = new JButton(WARRIOR_CLASS);
-    static JButton hunterButton = new JButton("Hunter");
-    static JButton rangerButton = new JButton("Ranger");
-    static JButton sentinelButton = new JButton("Sentinel");
-    static JButton mageButton = new JButton("Mage");
-    static JButton warlockButton = new JButton("Warlock");
-    static JButton pyroButton = new JButton("Pyromancer");
+    static JButton hunterButton = new JButton(HUNTER_CLASS);
+    static JButton rangerButton = new JButton(RANGER_CLASS);
+    static JButton sentinelButton = new JButton(SENTINEL_CLASS);
+    static JButton mageButton = new JButton(MAGE_CLASS);
+    static JButton warlockButton = new JButton(WARLOCK_CLASS);
+    static JButton pyroButton = new JButton(PYRO_CLASS);
 
     public void charSetup() throws InterruptedException {
 
