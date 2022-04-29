@@ -30,6 +30,7 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
     public final List<Ammo> EMPTY_AMMO_BAG = new ArrayList<Ammo>();
 
     public final Potion FIVE_POINT_HP_POTION = new Potion("5 point health potion", "health", 5);
+    public final Potion TEN_POINT_AP_POTION = new Potion("10 Point Action Point Potion", "actionPoints", 10);
 
     static Character playerChar = Main.player;
     String name = JOptionPane.showInputDialog("Enter character name");
@@ -95,19 +96,6 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
     public Character createCharacter(String charName,String chosenClass) {
 
         switch(chosenClass) {
-            case "Sentinel" : {
-                List<Ammo> ammoBag = new ArrayList<Ammo>();
-                ammoBag.add(new Ammo("Wooden Greatarrow", "greatarrow", 8, 20));
-
-                List<Potion> potionBag = new ArrayList<Potion>();
-                potionBag.add(new Potion("5 point health potion", "health", 5));
-                potionBag.add(new Potion("10 point action potion", "actionPoints", 10));
-
-                Ranged sentinelGreatbow = new Ranged("greatbow", "Old Wooden Great Bow", 12, 8, Ammo.GREAT_ARROW);
-
-                Character player = new Character(charName, "sentinel", 35, 35, 60, 60, sentinelGreatbow, ironHat, ironChest, ironFoot, EMPTY_AMMO_BAG, potionBag, EMPTY_INVENTORY);
-                return player;
-            }
             case "Mage" : {
                 List<Ammo> ammoBag = new ArrayList<Ammo>();
 
@@ -157,8 +145,8 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
 
             playerChar.setCharClass(WARRIOR_CLASS);
             playerChar.setAmmoBag(EMPTY_AMMO_BAG);
-            playerChar.setMaxHealth(100);
-            playerChar.setCurrentHealth(100);
+            playerChar.setMaxHealth(110);
+            playerChar.setCurrentHealth(110);
             playerChar.setMaxActionPoints(20);
             playerChar.setCurrentActionPoints(20);
             playerChar.setCurrentHelmet(ironHat);
@@ -226,7 +214,23 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
 
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(sentinelButton)) {
-            //charClass = "Sentinel";
+            Ranged sentinelGreatbow = new Ranged("greatbow", "Old Wooden Great Bow", 12, 8, Ammo.GREAT_ARROW);
+
+            playerChar.setCharClass(SENTINEL_CLASS);
+            playerChar.setAmmoBag(EMPTY_AMMO_BAG);
+                playerChar.ammoBag.add(new Ammo("Wooden Greatarrow", "greatarrow", 8));
+            playerChar.setMaxHealth(100);
+            playerChar.setCurrentHealth(100);
+            playerChar.setMaxActionPoints(20);
+            playerChar.setCurrentActionPoints(20);
+            playerChar.setCurrentHelmet(ironHat);
+            playerChar.setCurrentChest(ironChest);
+            playerChar.setCurrentBoots(ironFoot);
+            playerChar.setPotionBag(potionBag);
+                playerChar.potionBag.add(FIVE_POINT_HP_POTION);
+                playerChar.potionBag.add(TEN_POINT_AP_POTION);
+            playerChar.setCurrentWeapon(sentinelGreatbow);
+
             charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         } else if (actionSource.equals(mageButton)) {
             //charClass = "Mage";
