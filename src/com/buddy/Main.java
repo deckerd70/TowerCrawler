@@ -17,6 +17,8 @@ import java.io.Reader;
 public class Main {
     public static Character player = new Character();
 
+    Thread gamethread = new Thread();
+
     public static void main(String[] args) throws InterruptedException {
 
         CharacterCreator characterCreator = new CharacterCreator();
