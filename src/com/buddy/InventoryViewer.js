@@ -1,3 +1,3 @@
-function viewInventory (var inventory) {
-    print("PLACEHOLDER")
+function showInventory() {
+print("This is a place holder")
 }

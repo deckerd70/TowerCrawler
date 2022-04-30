@@ -4,7 +4,6 @@ public class Ranged extends Weapon{
     String ammoType;
 
     public Ranged() {
-
         String ammoType;
     }
 
