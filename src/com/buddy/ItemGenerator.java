@@ -9,15 +9,21 @@ public class ItemGenerator {
 
     //This is the list of describing keywords and the effect they will have on the weapons's damage
     //This will only be used for melee and ranged weapons
-    List<describingKeyword> describingKeywordList_Melee = new ArrayList<>(List.of(
-            new describingKeyword("Cracked", -3),
-            new describingKeyword("Bent", -2),
-            new describingKeyword("Old", -2),
-            new describingKeyword("", 0),
-            new describingKeyword("Fine", 1),
-            new describingKeyword("Improved", 2)));
+    List<Keyword> describingKeywordList_Weapon = new ArrayList<>(List.of(
+            new Keyword("Cracked", -3),
+            new Keyword("Bent", -2),
+            new Keyword("Old", -1),
+            new Keyword("", 0),
+            new Keyword("Fine", 1),
+            new Keyword("Improved", 2)
+    ));
 
 
+    //These Keywords will go after the describing keywords of weapons.
+    List<Keyword> MaterialKeywordList = new ArrayList<>(List.of(
+            new Keyword("Wooden", -1),
+            new Keyword("Iron", 0)
+    ));
 }
 
 
@@ -30,11 +36,11 @@ public class ItemGenerator {
 
 
 
-class describingKeyword {
+class Keyword {
     String desc;
     int damageChange;
 
-    public describingKeyword(String desc, int damageChange) {
+    public Keyword(String desc, int damageChange) {
         this.desc = desc;
         this.damageChange = damageChange;
     }
