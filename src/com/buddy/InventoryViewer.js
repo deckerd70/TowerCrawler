@@ -1,3 +1,3 @@
 function showInventory() {
-print("PLACE HOLDER")
+print("This is a place holder")
 }
