@@ -16,7 +16,25 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CharacterCreator implements ActionListener, WindowStateListener {
-    static String charClass = "";
+    public static final String WARRIOR_CLASS = "Warrior";
+    public static final String BARBARIAN_CLASS = "Barbarian";
+    public static final String HUNTER_CLASS = "Hunter";
+    public static final String RANGER_CLASS = "Ranger";
+    public static final String SENTINEL_CLASS = "Sentinel";
+    public static final String MAGE_CLASS = "Mage";
+    public static final String WARLOCK_CLASS = "Warlock";
+    public static final String PYRO_CLASS = "Pyromancer";
+
+
+    public final List<Object> EMPTY_INVENTORY = new ArrayList<>();
+    public final List<Ammo> EMPTY_AMMO_BAG = new ArrayList<Ammo>();
+
+    public final Potion FIVE_POINT_HP_POTION = new Potion("5 point health potion", "health", 5);
+    public final Potion TEN_POINT_AP_POTION = new Potion("10 Point Action Point Potion", "actionPoints", 10);
+
+    static Character playerChar = Main.player;
+    String name = JOptionPane.showInputDialog("Enter character name");
+    List<Potion> potionBag = new ArrayList<Potion>();
 
     static Armor ironHat = new Armor("head", "Crude Iron Helmet", 2);
     static Armor ironChest = new Armor("chest", "Crude Iron Chestplate", 6);
@@ -27,23 +45,19 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
     static Armor clothRobes = new Armor("chest", "Cloth Robes", 3);
 
     static JFrame charFrame = new JFrame("Character Class");
-    static JButton barbarianButton = new JButton("Barbarian");
-    static JButton warriorButton = new JButton("Warrior");
-    static JButton hunterButton = new JButton("Hunter");
-    static JButton rangerButton = new JButton("Ranger");
-    static JButton sentinelButton = new JButton("Sentinel");
-    static JButton mageButton = new JButton("Mage");
-    static JButton warlockButton = new JButton("Warlock");
-    static JButton pyroButton = new JButton("Pyromancer");
+    static JButton barbarianButton = new JButton(BARBARIAN_CLASS);
+    static JButton warriorButton = new JButton(WARRIOR_CLASS);
+    static JButton hunterButton = new JButton(HUNTER_CLASS);
+    static JButton rangerButton = new JButton(RANGER_CLASS);
+    static JButton sentinelButton = new JButton(SENTINEL_CLASS);
+    static JButton mageButton = new JButton(MAGE_CLASS);
+    static JButton warlockButton = new JButton(WARLOCK_CLASS);
+    static JButton pyroButton = new JButton(PYRO_CLASS);
 
-    public Character charSetup(){
-        String name = JOptionPane.showInputDialog("Enter character name");
+    public static WindowEvent closeWindow = new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING);
 
-        Character character = createCharacter(name);
-        return character;
-    }
+    public void charSetup() throws InterruptedException {
 
-    public Character createCharacter(String charName) {
         charFrame.addWindowStateListener(this);
         barbarianButton.addActionListener(this);
         warriorButton.addActionListener(this);
@@ -76,117 +90,164 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
         charFrame.setLayout(null);
         charFrame.setVisible(true);
 
-        switch(charClass) {
-            case "Barbarian" : {
-                List<Ammo> ammoBag = new ArrayList<Ammo>();
-
-                List<Potion> potionBag = new ArrayList<Potion>();
-                potionBag.add(new Potion("10 point action potion", "actionPoints", 10));
-
-                Armor barbarianChest = new Armor("chest", "Fur Cloak", 2);
-                Melee barbarianAxe = new Melee("battleAxe", "Crude Battleaxe", 10, 8);
-
-                Character player = new Character(charName, "barbarian", 65, 65, 25, 25, barbarianAxe, ironHat, barbarianChest, furBoots, ammoBag, potionBag);
-                return player;
-            }
-            case "Warrior": {
-                List<Ammo> ammoBag = new ArrayList<Ammo>();
-
-                List<Potion> potionBag = new ArrayList<Potion>();
-                potionBag.add(new Potion("5 point health potion", "health", 5));
-
-                Melee warriorSword = new Melee("sword", "Crude Iron Sword", 5, 4);
-
-                Character player = new Character(charName, "warrior", 40, 40, 40, 40, warriorSword, ironHat, ironChest, ironFoot, ammoBag, potionBag);
-                return player;
-            }
-            case "Hunter": {
-                List<Ammo> ammoBag = new ArrayList<Ammo>();
-                ammoBag.add(new Ammo("Iron Arrow", "arrow", 2, 20));
-
-                List<Potion> potionBag = new ArrayList<Potion>();
-                potionBag.add(new Potion("5 point health potion", "health", 5));
-                potionBag.add(new Potion("5 point health potion", "health", 5));
-
-                Armor hunterChest = new Armor("chest", "Leather Armor", 4);
-                Ranged hunterBow = new Ranged("bow", "Crude Wooden Bow", 5, 3, "arrow");
-
-                Character player = new Character(charName, "hunter", 25, 25, 40, 40, hunterBow, furHat, hunterChest, furBoots, ammoBag, potionBag);
-                return player;
-            }
-            case "Ranger": {
-                List<Ammo> ammoBag = new ArrayList<Ammo>();
-                ammoBag.add(new Ammo("Iron Bolt", "bolt", 4, 20));
-
-                List<Potion> potionBag = new ArrayList<Potion>();
-                potionBag.add(new Potion("5 point health potion", "health", 5));
-                potionBag.add(new Potion("5 point action potion", "actionPoints", 5));
-
-                Ranged rangerCrossbow = new Ranged("crossbow", "Cracked Wooden Crossbow", 8, 6, "bolt");
-
-                Character player = new Character(charName, "ranger", 25, 25, 35, 35, rangerCrossbow, furHat, ironChest, ironFoot, ammoBag, potionBag);
-                return player;
-            }
-            case "Sentinel" : {
-                List<Ammo> ammoBag = new ArrayList<Ammo>();
-                ammoBag.add(new Ammo("Wooden Greatarrow", "greatarrow", 8, 20));
-
-                List<Potion> potionBag = new ArrayList<Potion>();
-                potionBag.add(new Potion("5 point health potion", "health", 5));
-                potionBag.add(new Potion("10 point action potion", "actionPoints", 10));
-
-                Ranged sentinelGreatbow = new Ranged("greatbow", "Cracked Wooden Great Bow", 12, 8, "greatarrow");
-
-                Character player = new Character(charName, "sentinel", 35, 35, 60, 60, sentinelGreatbow, ironHat, ironChest, ironFoot, ammoBag, potionBag);
-                return player;
-            }
-            case "Mage" : {
-                List<Ammo> ammoBag = new ArrayList<Ammo>();
-
-                List<Potion> potionBag = new ArrayList<Potion>();
-                potionBag.add(new Potion("15 point action potion", "actionPoints", 15));
-
-                Magic mageSpell = new Magic("Minor Blast", 12, 3, "magic");
-
-                Character player = new Character(charName, "mage", 25, 25, 35, 35, mageSpell, clothHood, clothRobes, furBoots, ammoBag, potionBag);
-                return player;
-            }
-            case "Warlock": {
-                List<Ammo> ammoBag = new ArrayList<Ammo>();
-
-                List<Potion> potionBag = new ArrayList<Potion>();
-                potionBag.add(new Potion("15 point health potion", "health", 15));
-
-                Armor warlockHat = new Armor("head", "Goat Skull Helmet", 3);
-                Magic warlockSpell = new Magic("Dark Strike", 15, 5, "shadow");
-
-                Character player = new Character(charName, "warlock", 20, 20, 45, 45, warlockSpell, warlockHat, clothRobes, furBoots, ammoBag, potionBag);
-                return player;
-            }
-            case "Pyromancer" : {
-                List<Ammo> ammoBag = new ArrayList<Ammo>();
-
-                List<Potion> potionBag = new ArrayList<Potion>();
-                potionBag.add(new Potion("15 point health potion", "health", 15));
-
-                Magic pyroSpell = new Magic("Minor Flame", 18, 7, "pyro");
-
-                Character player = new Character(charName, "pyromancer", 20, 20, 45, 45, pyroSpell, clothHood, ironChest, ironFoot, ammoBag, potionBag);
-                return player;
-            }
+        while (playerChar.getCurrentWeapon() == null){
+            Thread.sleep(5);
         }
-        return new Character();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        playerChar.setName(name);
+        playerChar.setEquipmentInventory(EMPTY_INVENTORY);
 
         JButton actionSource = (JButton)e.getSource();
-        if(actionSource.equals(warriorButton)){
-            charClass = "warrior";
-            //TODO: Close the window once the user has clicked on a class button - may need to change what interface i'm (you're) using to read window events/status
-        } else if (actionSource.equals(barbarianButton)){
-            charClass = "barbarian";
+        if(actionSource.equals(warriorButton)) {
+            Melee warriorSword = new Melee("sword", "Crude Iron Sword", 5, 4);
+
+            playerChar.setCharClass(WARRIOR_CLASS);
+            playerChar.setAmmoBag(EMPTY_AMMO_BAG);
+            playerChar.setMaxHealth(110);
+            playerChar.setCurrentHealth(110);
+            playerChar.setMaxActionPoints(20);
+            playerChar.setCurrentActionPoints(20);
+            playerChar.setCurrentHelmet(ironHat);
+            playerChar.setCurrentChest(ironChest);
+            playerChar.setCurrentBoots(ironFoot);
+            playerChar.setPotionBag(potionBag);
+                potionBag.add(new Potion("25 point health potion", "health", 25));
+            playerChar.setCurrentWeapon(warriorSword);
+
+            charFrame.dispatchEvent(closeWindow);
+        } else if (actionSource.equals(barbarianButton)) {
+            Armor barbarianChest = new Armor("chest", "Fur Cloak", 2);
+            Melee barbarianAxe = new Melee("battleAxe", "Crude Battleaxe", 10, 8);
+
+            playerChar.setCharClass(BARBARIAN_CLASS);
+            playerChar.setAmmoBag(EMPTY_AMMO_BAG);
+            playerChar.setMaxHealth(80);
+            playerChar.setCurrentHealth(80);
+            playerChar.setMaxActionPoints(35);
+            playerChar.setCurrentActionPoints(35);
+            playerChar.setCurrentHelmet(ironHat);
+            playerChar.setCurrentChest(barbarianChest);
+            playerChar.setCurrentBoots(furBoots);
+            playerChar.setPotionBag(potionBag);
+                potionBag.add(new Potion("10 point action potion", "actionPoints", 10));
+            playerChar.setCurrentWeapon(barbarianAxe);
+
+            charFrame.dispatchEvent(closeWindow);
+        } else if (actionSource.equals(hunterButton)) {
+            Armor hunterChest = new Armor("chest", "Leather Armor", 4);
+            Ranged hunterBow = new Ranged("bow", "Crude Wooden Bow", 5, 3, "arrow");
+
+            playerChar.setCharClass(HUNTER_CLASS);
+            playerChar.setAmmoBag(EMPTY_AMMO_BAG);
+                playerChar.ammoBag.add(new Ammo("Iron Arrow", "arrow", 2));
+            playerChar.setMaxHealth(60);
+            playerChar.setCurrentHealth(60);
+            playerChar.setMaxActionPoints(20);
+            playerChar.setCurrentActionPoints(20);
+            playerChar.setCurrentHelmet(furHat);
+            playerChar.setCurrentChest(hunterChest);
+            playerChar.setCurrentBoots(furBoots);
+            playerChar.setPotionBag(potionBag);
+                potionBag.add(FIVE_POINT_HP_POTION);
+                potionBag.add(FIVE_POINT_HP_POTION);
+            playerChar.setCurrentWeapon(hunterBow);
+
+            charFrame.dispatchEvent(closeWindow);
+        } else if (actionSource.equals(rangerButton)) {
+            Ranged rangerCrossbow = new Ranged("crossbow", "Cracked Wooden Crossbow", 8, 6, "bolt");
+
+            playerChar.setCharClass(RANGER_CLASS);
+            playerChar.setAmmoBag(EMPTY_AMMO_BAG);
+                playerChar.ammoBag.add(new Ammo("Iron Bolt", "bolt", 4));
+            playerChar.setMaxHealth(80);
+            playerChar.setCurrentHealth(80);
+            playerChar.setMaxActionPoints(25);
+            playerChar.setCurrentActionPoints(25);
+            playerChar.setCurrentHelmet(furHat);
+            playerChar.setCurrentChest(ironChest);
+            playerChar.setCurrentBoots(ironFoot);
+            playerChar.setPotionBag(potionBag);
+                potionBag.add(FIVE_POINT_HP_POTION);
+            playerChar.setCurrentWeapon(rangerCrossbow);
+
+            charFrame.dispatchEvent(closeWindow);
+        } else if (actionSource.equals(sentinelButton)) {
+            Ranged sentinelGreatbow = new Ranged("greatbow", "Old Wooden Great Bow", 12, 8, Ammo.GREAT_ARROW);
+
+            playerChar.setCharClass(SENTINEL_CLASS);
+            playerChar.setAmmoBag(EMPTY_AMMO_BAG);
+                playerChar.ammoBag.add(new Ammo("Wooden Greatarrow", "greatarrow", 8));
+            playerChar.setMaxHealth(100);
+            playerChar.setCurrentHealth(100);
+            playerChar.setMaxActionPoints(20);
+            playerChar.setCurrentActionPoints(20);
+            playerChar.setCurrentHelmet(ironHat);
+            playerChar.setCurrentChest(ironChest);
+            playerChar.setCurrentBoots(ironFoot);
+            playerChar.setPotionBag(potionBag);
+                playerChar.potionBag.add(FIVE_POINT_HP_POTION);
+                playerChar.potionBag.add(TEN_POINT_AP_POTION);
+            playerChar.setCurrentWeapon(sentinelGreatbow);
+
+            charFrame.dispatchEvent(closeWindow);
+        } else if (actionSource.equals(mageButton)) {
+            Magic mageSpell = new Magic("Minor Blast", 8, 4, "magic");
+
+            playerChar.setCharClass(MAGE_CLASS);
+            playerChar.setAmmoBag(EMPTY_AMMO_BAG);
+            playerChar.setMaxHealth(70);
+            playerChar.setCurrentHealth(70);
+            playerChar.setMaxActionPoints(20);
+            playerChar.setCurrentActionPoints(20);
+            playerChar.setCurrentHelmet(clothHood);
+            playerChar.setCurrentChest(clothRobes);
+            playerChar.setCurrentBoots(furBoots);
+            playerChar.setPotionBag(potionBag);
+                playerChar.potionBag.add(TEN_POINT_AP_POTION);
+                playerChar.potionBag.add(TEN_POINT_AP_POTION);
+            playerChar.setCurrentWeapon(mageSpell);
+
+            charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
+        } else if (actionSource.equals(warlockButton)) {
+            Magic warlockSpell = new Magic("Dark Slash", 12, 2, "shadow");
+            Armor warlockHat = new Armor("head", "Goat Skull Helmet", 3);
+
+            playerChar.setCharClass(WARLOCK_CLASS);
+            playerChar.setAmmoBag(EMPTY_AMMO_BAG);
+            playerChar.setMaxHealth(50);
+            playerChar.setCurrentHealth(50);
+            playerChar.setMaxActionPoints(25);
+            playerChar.setCurrentActionPoints(25);
+            playerChar.setCurrentHelmet(warlockHat);
+            playerChar.setCurrentChest(clothRobes);
+            playerChar.setCurrentBoots(furBoots);
+            playerChar.setPotionBag(potionBag);
+                playerChar.potionBag.add(TEN_POINT_AP_POTION);
+                playerChar.potionBag.add(FIVE_POINT_HP_POTION);
+            playerChar.setCurrentWeapon(warlockSpell);
+
+            charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
+        } else if (actionSource.equals(pyroButton)) {
+            Magic pyroSpell = new Magic("Minor Flame", 12, 2, "fire");
+
+            playerChar.setCharClass(PYRO_CLASS);
+            playerChar.setAmmoBag(EMPTY_AMMO_BAG);
+            playerChar.setMaxHealth(60);
+            playerChar.setCurrentHealth(60);
+            playerChar.setMaxActionPoints(30);
+            playerChar.setCurrentActionPoints(30);
+            playerChar.setCurrentHelmet(ironHat);
+            playerChar.setCurrentChest(clothRobes);
+            playerChar.setCurrentBoots(furBoots);
+            playerChar.setPotionBag(potionBag);
+                playerChar.potionBag.add(FIVE_POINT_HP_POTION);
+                playerChar.potionBag.add(FIVE_POINT_HP_POTION);
+            playerChar.setCurrentWeapon(pyroSpell);
+
+            charFrame.dispatchEvent(new WindowEvent(charFrame, WindowEvent.WINDOW_CLOSING));
         }
     };
 

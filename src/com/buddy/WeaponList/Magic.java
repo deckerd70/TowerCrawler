@@ -1,15 +1,9 @@
 package com.buddy.WeaponList;
 
 public class Magic extends Weapon{
-    String name;
-    int damage;
-    int actionCost;
     String element;
 
     public Magic() {
-        String name;
-        float damage;
-        float actionCost;
         String element;
     }
 
