@@ -7,8 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemGenerator {
-    //public final int DAMAGE_SCALING =
-    //!!!!!when the character level/xp system is added, this will take effect
+    public final String barbarian = CharacterCreator.BARBARIAN_CLASS;
+    public final String warrior = CharacterCreator.WARRIOR_CLASS;
+    public final String hunter = CharacterCreator.HUNTER_CLASS;
+    public final String ranger = CharacterCreator.RANGER_CLASS;
+    public final String sentinel = CharacterCreator.SENTINEL_CLASS;
+    public final String mage = CharacterCreator.MAGE_CLASS;
+    public final String warlock = CharacterCreator.WARLOCK_CLASS;
+    public final String pyro = CharacterCreator.PYRO_CLASS;
+    public final List<String> meleeClasses = new ArrayList<>(List.of(
+            barbarian,
+            warrior,
+            hunter,
+            ranger,
+            sentinel
+    ));
 
     //This is the list of describing keywords and the effect they will have on the weapons's damage
     //This will only be used for melee and ranged weapons
@@ -112,10 +125,10 @@ public class ItemGenerator {
 
     //List of shadow spells (warlock)
     List<Keyword> warlock_TypeKeywordList = new ArrayList<>(List.of(
-            new Keyword("Slash", 7),
-            new Keyword("Grip", 10),
+            new Keyword("Dark Slash", 7),
+            new Keyword("Shadow Grip", 10),
             new Keyword("Terror", 13),
-            new Keyword("Claw", 16),
+            new Keyword("Dark Claw", 16),
             new Keyword("Ultra Terror", 20)
     ));
 
@@ -130,22 +143,32 @@ public class ItemGenerator {
         int highestTier = 0;
 
         switch (playerClass) {
-            case (CharacterCreator.BARBARIAN_CLASS) :
+            case (barbarian) :
                 playerItemKeywordList = barbarian_TypeKeywordList;
-            case (CharacterCreator.WARRIOR_CLASS) :
+                break;
+            case (warrior) :
                 playerItemKeywordList = warrior_TypeKeywordList;
-            case (CharacterCreator.HUNTER_CLASS) :
+                break;
+            case (hunter) :
                 playerItemKeywordList = hunter_TypeKeywordList;
-            case (CharacterCreator.RANGER_CLASS) :
+                break;
+            case (ranger) :
                 playerItemKeywordList = ranger_KeywordList;
-            case (CharacterCreator.SENTINEL_CLASS) :
+                break;
+            case (sentinel) :
                 playerItemKeywordList = sentinel_KeywordList;
-            case (CharacterCreator.MAGE_CLASS) :
+                break;
+            case (mage) :
                 playerItemKeywordList = mage_TypeKeywordList;
-            case (CharacterCreator.WARLOCK_CLASS) :
+                break;
+            case (warlock) :
                 playerItemKeywordList = warlock_TypeKeywordList;
-            case (CharacterCreator.PYRO_CLASS) :
+                break;
+            case (pyro) :
                 playerItemKeywordList = pyro_TypeKeywordList;
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + playerClass);
         }
 
 
@@ -159,9 +182,13 @@ public class ItemGenerator {
             highestTier = 4;
         }
 
-        weaponName = weaponName + describingKeywordList_Weapon.get((int) (Math.random()*9)).getDesc();
-        weaponName = weaponName + " " + materialKeywordList.get((int) (Math.random()*7)).getDesc();
-        weaponName = weaponName + " " + warrior_TypeKeywordList.get(generateTierIndex(highestTier)).getDesc();
+        if (meleeClasses.contains(playerClass)) {
+            weaponName = weaponName + describingKeywordList_Weapon.get((int) (Math.random() * 9)).getDesc();
+            weaponName = weaponName + " " + materialKeywordList.get((int) (Math.random() * 7)).getDesc();
+        } else {
+            weaponName = weaponName + describingKeyWordList_Magic.get((int) (Math.random() * 6)).getDesc();
+        }
+        weaponName = weaponName + " " + playerItemKeywordList.get(generateTierIndex(highestTier)).getDesc();
         dropWeapon.setName(weaponName);
 
         return dropWeapon;

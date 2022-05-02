@@ -29,6 +29,7 @@ public class Main {
         System.out.println(player.charClass + "\nname:" +player.getName());
         System.out.println(player.getCurrentBoots().name);
 
+        System.out.println("\n GENERATING WEAPONS..............");
         for (int i = 1; i < 5; i++) {
             player.setLevel(i * 5);
             Weapon weapon = itemGenerator.generateWeapon(player);
