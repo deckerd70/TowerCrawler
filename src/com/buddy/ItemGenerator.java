@@ -142,34 +142,17 @@ public class ItemGenerator {
         Weapon dropWeapon = new Weapon();
         int highestTier = 0;
 
-        switch (playerClass) {
-            case (barbarian) :
-                playerItemKeywordList = barbarian_TypeKeywordList;
-                break;
-            case (warrior) :
-                playerItemKeywordList = warrior_TypeKeywordList;
-                break;
-            case (hunter) :
-                playerItemKeywordList = hunter_TypeKeywordList;
-                break;
-            case (ranger) :
-                playerItemKeywordList = ranger_KeywordList;
-                break;
-            case (sentinel) :
-                playerItemKeywordList = sentinel_KeywordList;
-                break;
-            case (mage) :
-                playerItemKeywordList = mage_TypeKeywordList;
-                break;
-            case (warlock) :
-                playerItemKeywordList = warlock_TypeKeywordList;
-                break;
-            case (pyro) :
-                playerItemKeywordList = pyro_TypeKeywordList;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + playerClass);
-        }
+        playerItemKeywordList = switch (playerClass) {
+            case (barbarian) -> barbarian_TypeKeywordList;
+            case (warrior) -> warrior_TypeKeywordList;
+            case (hunter) -> hunter_TypeKeywordList;
+            case (ranger) -> ranger_KeywordList;
+            case (sentinel) -> sentinel_KeywordList;
+            case (mage) -> mage_TypeKeywordList;
+            case (warlock) -> warlock_TypeKeywordList;
+            case (pyro) -> pyro_TypeKeywordList;
+            default -> throw new IllegalStateException("Unexpected value: " + playerClass);
+        };
 
 
         if(charLevel >= 5 && charLevel < 10) {
@@ -182,24 +165,38 @@ public class ItemGenerator {
             highestTier = 4;
         }
 
+        Keyword keywordIndexWeapon = describingKeywordList_Weapon.get((int) (Math.random() * 9));
+        Keyword keywordIndexMaterial = materialKeywordList.get((int) (Math.random() * 7));
+        Keyword keywordIndexMagic = describingKeyWordList_Magic.get((int) (Math.random() * 6));
+        int tierIndex = generateTierIndex(highestTier);
+        Keyword tierCalc = playerItemKeywordList.get(tierIndex);
+        int damageCalc = 0;
+
         if (meleeClasses.contains(playerClass)) {
-            weaponName = weaponName + describingKeywordList_Weapon.get((int) (Math.random() * 9)).getDesc();
-            weaponName = weaponName + " " + materialKeywordList.get((int) (Math.random() * 7)).getDesc();
+            weaponName = weaponName + keywordIndexWeapon.getDesc();
+            damageCalc+= keywordIndexWeapon.getStatChange();
+            weaponName = weaponName + " " + keywordIndexMaterial.getDesc();
+            damageCalc += keywordIndexMaterial.getStatChange();
         } else {
-            weaponName = weaponName + describingKeyWordList_Magic.get((int) (Math.random() * 6)).getDesc();
+            weaponName = weaponName + keywordIndexMagic.getDesc();
+            damageCalc += keywordIndexMagic.getStatChange();
         }
-        weaponName = weaponName + " " + playerItemKeywordList.get(generateTierIndex(highestTier)).getDesc();
+        weaponName = weaponName + " " + tierCalc.getDesc();
+        damageCalc += tierCalc.getStatChange();
+
         dropWeapon.setName(weaponName);
+        dropWeapon.setDamage(damageCalc);
 
         return dropWeapon;
     }
 
-    private int generateTierIndex(int max) {
-        return (int) ((Math.random() * (max)));
-    }
-
     public Armor generateArmor(Character player){
         return new Armor();
+    }
+
+
+    private int generateTierIndex(int max) {
+        return (int) ((Math.random() * (max)));
     }
 }
 
