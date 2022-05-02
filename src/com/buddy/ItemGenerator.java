@@ -122,10 +122,32 @@ public class ItemGenerator {
 
 
     public Weapon generateWeapon(Character player) {
+        List<Keyword> playerItemKeywordList;
+        String playerClass = player.getCharClass();
         int charLevel = player.getLevel();
         String weaponName = "";
         Weapon dropWeapon = new Weapon();
         int highestTier = 0;
+
+        switch (playerClass) {
+            case (CharacterCreator.BARBARIAN_CLASS) :
+                playerItemKeywordList = barbarian_TypeKeywordList;
+            case (CharacterCreator.WARRIOR_CLASS) :
+                playerItemKeywordList = warrior_TypeKeywordList;
+            case (CharacterCreator.HUNTER_CLASS) :
+                playerItemKeywordList = hunter_TypeKeywordList;
+            case (CharacterCreator.RANGER_CLASS) :
+                playerItemKeywordList = ranger_KeywordList;
+            case (CharacterCreator.SENTINEL_CLASS) :
+                playerItemKeywordList = sentinel_KeywordList;
+            case (CharacterCreator.MAGE_CLASS) :
+                playerItemKeywordList = mage_TypeKeywordList;
+            case (CharacterCreator.WARLOCK_CLASS) :
+                playerItemKeywordList = warlock_TypeKeywordList;
+            case (CharacterCreator.PYRO_CLASS) :
+                playerItemKeywordList = pyro_TypeKeywordList;
+        }
+
 
         if(charLevel >= 5 && charLevel < 10) {
             highestTier = 1;
