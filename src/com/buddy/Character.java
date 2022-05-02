@@ -10,6 +10,9 @@ import java.util.List;
 public class Character {
     String name;
     String charClass;
+    int level;
+    int currentXp;
+    int xpToNextLvl;
     int maxHealth;
     int currentHealth;
     int maxActionPoints;
@@ -25,6 +28,9 @@ public class Character {
     public Character() {
         String name;
         String charClass;
+        int level;
+        int currentXp;
+        int xpToNextLvl;
         int maxHealth;
         int currentHealth;
         int actionPoints;
@@ -40,6 +46,9 @@ public class Character {
 
     public Character(String name,
                      String charClass,
+                     int level,
+                     int currentXp,
+                     int xpToNextLvl,
                      int maxHealth,
                      int currentHealth,
                      int maxActionPoints,
@@ -53,6 +62,9 @@ public class Character {
                      List<Object> equipmentInventory){
         this.name = name;
         this.charClass = charClass;
+        this.level = level;
+        this.currentXp = currentXp;
+        this.xpToNextLvl = xpToNextLvl;
         this.maxHealth = maxHealth;
         this.currentHealth = currentHealth;
         this.maxActionPoints = maxActionPoints;
@@ -80,6 +92,30 @@ public class Character {
 
     public void setCharClass(String charClass) {
         this.charClass = charClass;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getCurrentXp() {
+        return currentXp;
+    }
+
+    public void setCurrentXp(int currentXp) {
+        this.currentXp = currentXp;
+    }
+
+    public int getXpToNextLvl() {
+        return xpToNextLvl;
+    }
+
+    public void setXpToNextLvl(int xpToNextLvl) {
+        this.xpToNextLvl = xpToNextLvl;
     }
 
     public int getMaxHealth() {

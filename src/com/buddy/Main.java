@@ -1,6 +1,7 @@
 package com.buddy;
 
 import com.buddy.WeaponList.Melee;
+import com.buddy.WeaponList.Weapon;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -22,10 +23,17 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
 
         CharacterCreator characterCreator = new CharacterCreator();
+        ItemGenerator itemGenerator = new ItemGenerator();
         Character player = CharacterCreator.playerChar;
         characterCreator.charSetup();
         System.out.println(player.charClass + "\nname:" +player.getName());
         System.out.println(player.getCurrentBoots().name);
+
+        for (int i = 1; i < 5; i++) {
+            player.setLevel(i * 5);
+            Weapon weapon = itemGenerator.generateWeapon(player);
+            System.out.println(weapon.getName());
+        }
 
         while (player.getCurrentHealth() > 0) { // || Level > 10)
 

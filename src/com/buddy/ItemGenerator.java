@@ -1,5 +1,7 @@
 package com.buddy;
 
+import com.buddy.WeaponList.Weapon;
+
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,11 +118,41 @@ public class ItemGenerator {
             new Keyword("Claw", 16),
             new Keyword("Ultra Terror", 20)
     ));
+
+
+
+    public Weapon generateWeapon(Character player) {
+        int charLevel = player.getLevel();
+        String weaponName = "";
+        Weapon dropWeapon = new Weapon();
+        int highestTier = 0;
+
+        if(charLevel >= 5 && charLevel < 10) {
+            highestTier = 1;
+        } else if(charLevel >= 10 && charLevel < 15) {
+            highestTier = 2;
+        } else if(charLevel >= 15 && charLevel < 20) {
+            highestTier = 3;
+        } else if (charLevel >= 20) {
+            highestTier = 4;
+        }
+
+        weaponName = weaponName + describingKeywordList_Weapon.get((int) (Math.random()*9)).getDesc();
+        weaponName = weaponName + " " + materialKeywordList.get((int) (Math.random()*7)).getDesc();
+        weaponName = weaponName + " " + warrior_TypeKeywordList.get(generateTierIndex(highestTier)).getDesc();
+        dropWeapon.setName(weaponName);
+
+        return dropWeapon;
+    }
+
+    private int generateTierIndex(int max) {
+        return (int) ((Math.random() * (max)));
+    }
+
+    public Armor generateArmor(Character player){
+        return new Armor();
+    }
 }
-
-
-
-
 
 
 
@@ -130,11 +162,26 @@ public class ItemGenerator {
 
 class Keyword {
     String desc;
-    int damageChange;
+    int statChange;
 
-    public Keyword(String desc, int damageChange) {
+    public Keyword(String desc, int statChange) {
         this.desc = desc;
-        this.damageChange = damageChange;
+        this.statChange = statChange;
     }
 
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public int getStatChange() {
+        return statChange;
+    }
+
+    public void setStatChange(int statChange) {
+        this.statChange = statChange;
+    }
 }

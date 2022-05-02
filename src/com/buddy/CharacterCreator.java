@@ -25,7 +25,6 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
     public static final String WARLOCK_CLASS = "Warlock";
     public static final String PYRO_CLASS = "Pyromancer";
 
-
     public final List<Object> EMPTY_INVENTORY = new ArrayList<>();
     public final List<Ammo> EMPTY_AMMO_BAG = new ArrayList<Ammo>();
 
@@ -98,6 +97,9 @@ public class CharacterCreator implements ActionListener, WindowStateListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         playerChar.setName(name);
+        playerChar.setLevel(1);
+        playerChar.setCurrentXp(0);
+        playerChar.setXpToNextLvl(100);
         playerChar.setEquipmentInventory(EMPTY_INVENTORY);
 
         JButton actionSource = (JButton)e.getSource();
