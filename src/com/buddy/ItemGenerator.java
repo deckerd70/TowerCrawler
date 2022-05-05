@@ -132,7 +132,51 @@ public class ItemGenerator {
             new Keyword("Ultra Terror", 20)
     ));
 
+    //List of Armor Describing Words
+    List<Keyword> armorDescriptionKeywords = new ArrayList<>(List.of(
+            new Keyword("Battered", -3),
+            new Keyword("Worn", -2),
+            new Keyword("Crude", -1),
+            new Keyword("", 0),
+            new Keyword("Improved", 1),
+            new Keyword("Fine", 2),
+            new Keyword("Reinforced", 3),
+            new Keyword("Mastercraft", 4),
+            new Keyword("Epic", 5),
+            new Keyword("Legendary", 6)
+    ));
 
+    //List of Armor material keywords
+    List<Keyword> armorMaterialKeywords = new ArrayList<>(List.of(
+            new Keyword("Cloth", -1),
+            new Keyword("Leather", 0),
+            new Keyword("Iron", 1),
+            new Keyword("Steel", 2),
+            new Keyword("Bone", 3),
+            new Keyword("Supersteel", 4),
+            new Keyword("Mythic", 6),
+            new Keyword("Ultimatis", 8)
+    ));
+
+    //List of Head Pieces
+    List<Keyword> armorPiecesHead = new ArrayList<>(List.of(
+            new Keyword("Cap", 4),
+            new Keyword("Crown", 4),
+            new Keyword("Hood", 5),
+            new Keyword("Neckguard", 6),
+            new Keyword("Helmet", 8)
+    ));
+
+    //List of Chest Pieces
+    List<Keyword> armorPiecesChest = new ArrayList<>(List.of(
+            new Keyword("Shirt", 7),
+            new Keyword("Robes", 8),
+            new Keyword("Guard", 10),
+            new Keyword("Cover", 12),
+            new Keyword("Armor", 15)
+    ));
+
+    //
 
     public Weapon generateWeapon(Character player) {
         List<Keyword> playerItemKeywordList;
@@ -190,7 +234,8 @@ public class ItemGenerator {
         return dropWeapon;
     }
 
-    public Armor generateArmor(Character player){
+    public Armor generateArmor(Character player) {
+
         return new Armor();
     }
 
