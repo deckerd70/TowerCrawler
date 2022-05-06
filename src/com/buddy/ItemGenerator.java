@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemGenerator {
+    public final String HEAD = "head";
+    public final String CHEST = "chest";
+    public final String FOOT = "foot";
+
+
     public final String barbarian = CharacterCreator.BARBARIAN_CLASS;
     public final String warrior = CharacterCreator.WARRIOR_CLASS;
     public final String hunter = CharacterCreator.HUNTER_CLASS;
@@ -160,11 +165,11 @@ public class ItemGenerator {
 
     //List of Head Pieces
     List<Keyword> armorPiecesHead = new ArrayList<>(List.of(
-            new Keyword("Cap", 4),
-            new Keyword("Crown", 4),
-            new Keyword("Hood", 5),
-            new Keyword("Neckguard", 6),
-            new Keyword("Helmet", 8)
+            new Keyword("Cap", 5),
+            new Keyword("Crown", 5),
+            new Keyword("Hood", 6),
+            new Keyword("Neckguard", 7),
+            new Keyword("Helmet", 9)
     ));
 
     //List of Chest Pieces
@@ -176,7 +181,14 @@ public class ItemGenerator {
             new Keyword("Armor", 15)
     ));
 
-    //
+    //List of Boot Pieces
+    List<Keyword> armorPiecesFoot = new ArrayList<>(List.of(
+            new Keyword("Slippers", 4),
+            new Keyword("Sandals", 5),
+            new Keyword("Wraps", 5),
+            new Keyword("Shoes", 6),
+            new Keyword("Boots", 7)
+    ));
 
     public Weapon generateWeapon(Character player) {
         List<Keyword> playerItemKeywordList;
@@ -184,7 +196,6 @@ public class ItemGenerator {
         int charLevel = player.getLevel();
         String weaponName = "";
         Weapon dropWeapon = new Weapon();
-        int highestTier = 0;
 
         playerItemKeywordList = switch (playerClass) {
             case (barbarian) -> barbarian_TypeKeywordList;
@@ -199,21 +210,10 @@ public class ItemGenerator {
         };
 
 
-        if(charLevel >= 5 && charLevel < 10) {
-            highestTier = 1;
-        } else if(charLevel >= 10 && charLevel < 15) {
-            highestTier = 2;
-        } else if(charLevel >= 15 && charLevel < 20) {
-            highestTier = 3;
-        } else if (charLevel >= 20) {
-            highestTier = 4;
-        }
-
         Keyword keywordIndexWeapon = describingKeywordList_Weapon.get((int) (Math.random() * 9));
         Keyword keywordIndexMaterial = materialKeywordList.get((int) (Math.random() * 7));
         Keyword keywordIndexMagic = describingKeyWordList_Magic.get((int) (Math.random() * 6));
-        int tierIndex = generateTierIndex(highestTier);
-        Keyword tierCalc = playerItemKeywordList.get(tierIndex);
+        Keyword tierCalc = playerItemKeywordList.get(generateTierIndex(charLevel));
         int damageCalc = 0;
 
         if (meleeClasses.contains(playerClass)) {
@@ -235,13 +235,60 @@ public class ItemGenerator {
     }
 
     public Armor generateArmor(Character player) {
+        String armorName = "";
+        int armorCalc = 0;
+        int charLevel = player.getLevel();
+        Armor dropArmor = new Armor();
+        List<Keyword> armorTypeList;
+        String armorType = HEAD;
+        int getTypeIndex = (int) (Math.random() * 3);
+        switch (getTypeIndex) {
+            case (0) -> armorTypeList = armorPiecesHead;
+            case (1) -> {
+                armorTypeList = armorPiecesChest;
+                armorType = CHEST;
+            }
+            case (2) -> {
+                armorTypeList = armorPiecesFoot;
+                armorType = FOOT;
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + getTypeIndex);
+        }
 
-        return new Armor();
+        Keyword keywordIndexDescription = armorDescriptionKeywords.get((int) (Math.random() * 9));
+        Keyword keywordIndexMaterial = armorMaterialKeywords.get((int) (Math.random() * 7));
+        Keyword keywordIndexArmorTier = armorTypeList.get(generateTierIndex(charLevel));
+
+        armorName = armorName + keywordIndexDescription.getDesc();
+        armorCalc += keywordIndexDescription.getStatChange();
+
+        armorName = armorName + " " + keywordIndexMaterial.getDesc();
+        armorCalc += keywordIndexMaterial.getStatChange();
+
+        armorName = armorName + " " + keywordIndexArmorTier.getDesc();
+        armorCalc += keywordIndexArmorTier.getStatChange();
+
+        dropArmor.setSlot(armorType);
+        dropArmor.setName(armorName);
+        dropArmor.setArmorPoints(armorCalc);
+
+        return dropArmor;
     }
 
 
-    private int generateTierIndex(int max) {
-        return (int) ((Math.random() * (max)));
+    private int generateTierIndex(int charLevel) {
+        int highestTier = 0;
+
+        if(charLevel >= 5 && charLevel < 10) {
+            highestTier = 1;
+        } else if(charLevel >= 10 && charLevel < 15) {
+            highestTier = 2;
+        } else if(charLevel >= 15 && charLevel < 20) {
+            highestTier = 3;
+        } else if (charLevel >= 20) {
+            highestTier = 4;
+        }
+        return (int) ((Math.random() * (highestTier)));
     }
 }
 

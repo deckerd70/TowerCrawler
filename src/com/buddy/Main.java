@@ -33,8 +33,16 @@ public class Main {
         for (int i = 1; i < 5; i++) {
             player.setLevel(i * 5);
             Weapon weapon = itemGenerator.generateWeapon(player);
-            System.out.println(weapon.getName());
+            System.out.println(weapon.getName() + ", damage: " + weapon.getDamage());
         }
+
+        System.out.println("\n\n\n GENERATING ARMOR..............");
+        for (int i = 1; i < 5; i++) {
+            player.setLevel(i * 5);
+            Armor armor = itemGenerator.generateArmor(player);
+            System.out.println(armor.getName() + ", armor:  " + armor.getArmorPoints());
+        }
+
 
         while (player.getCurrentHealth() > 0) { // || Level > 10)
 
